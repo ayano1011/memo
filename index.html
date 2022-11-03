@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>草管理</title>
+</head>
+
+<body>
+    <h1>タイトル</h1>
+    <div id="calendar" class="calendar"></div>
+    <select name="kind_of_hay" id="kind_of_hay">
+        <option value="hay1">プレミアムチモシー500g</option>
+        <option value="hay2">アルファアルファ1000g</option>
+        <option value="hay3">オーツヘイ500g</option>
+    </select>
+    <button id="btn">OK</button>
+    <div id="list" class="list">
+    </div>
+    <select name="" id=" select"></select>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let dayofweek = date.getDate();
+
+        let weekdayname = ["日", "月", "火", "水", "木", "金", "土"]
+
+
+        // console.log(year + "年" + month + "月" + day + "日" + "[" + weekdayname[dayofweek] + "]")
+        let calendar_title = year + "年" + month + "月" + day + "日" + "[" + weekdayname[dayofweek] + "]";
+        $("#calendar").html(calendar_title)
+
+        // 日付と草のデータをまとめて取得
+        const info = [];
+
+
+        $("#btn").on("click", function () {
+            const today = $("#calendar").text();
+            const hayname = $("#kind_of_hay option:selected").text()
+            // console.log(today);
+            const data = {
+                date_stamp: today,
+                kind: hayname,
+            };
+            info.push(data);
+            // console.log(info);
+            $.each(info, function (index, date_stamp) {
+                $(".list").append(index + ":" + date_stamp + "<br>")
+            });
+
+            // memoのローカルストレージに保存
+            const jsonDate = JSON.stringify(info);
+            // console.log(jsonDate)
+            window.localStorage.setItem("memo", jsonDate);
+        });
+
+        const jsonDate = localStorage.getItem("memo");
+        const data = JSON.parse(jsonDate);
+        console.log(data)
+
+
+
+
+        // optionタグの生成
+        // 開始日と終了日を定義
+        const start = 1950;
+        const end = 2021;
+
+        // 出力用の空文字をつくる
+        let option = "";
+
+        // optionタグを作成する。繰り返し処理にて、開始年〜終了年を処理
+        for (let i = start; i <= end; i++) {
+            option += "<option>" + i + "</option>";
+        }
+
+        // HTMLの指定したid=selectの箇所に出力される
+        $("#select").html(option)
+
+    </script>
+</body>
+
+</html>
