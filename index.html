@@ -6,10 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>草管理</title>
+    <link rel="stylesheet" href="index.css">
+
 </head>
 
 <body>
-    <h1>タイトル</h1>
+    <h1>牧草リスト</h1>
     <div id="calendar" class="calendar"></div>
     <select name="kind_of_hay" id="kind_of_hay">
         <option value="hay1">プレミアムチモシー500g</option>
@@ -62,7 +64,7 @@
 
         const jsonDate = localStorage.getItem("memo");
         const data = JSON.parse(jsonDate);
-        console.log(data)
+        console.log(data);
 
 
 
